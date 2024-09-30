@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-const ConditionalList = ({ data }) => {
+const ConditionalList = ({ data, handleScroll }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
 
   const handleToogle = () => {
     setIsOpen(!isOpen);
-    if(isOpen) setOpenCategories({})
+    if (isOpen) setOpenCategories({});
   };
 
   const handleToogleCategory = (type) => {
@@ -21,7 +21,7 @@ const ConditionalList = ({ data }) => {
     if (!acc[typeKey]) {
       acc[typeKey] = [];
     }
-    acc[typeKey].push(item.name);
+    acc[typeKey].push(item);
     return acc;
   }, {});
 
@@ -30,17 +30,23 @@ const ConditionalList = ({ data }) => {
       <div className="cont_punto" onClick={handleToogle}>
         <h2>Condicionales</h2>
       </div>
-      {Object.entries(groupedData).map(([type, names]) => (
+      {Object.entries(groupedData).map(([type, items]) => (
         <div key={type}>
-            <h3
-              className={`cont_punto resp ${isOpen ? "respActive" : ""}`}
-              onClick={() => handleToogleCategory(type)}
-            >
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-            </h3>
+          <h3
+            className={`cont_punto resp ${isOpen ? "respActive" : ""}`}
+            onClick={() => handleToogleCategory(type)}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </h3>
           <ul className={`resp ${openCategories[type] ? "respActive" : ""}`}>
-            {names.map((name) => (
-              <li className="cont_punto sangria" key={name}>{name}</li>
+            {items.map((item) => (
+              <li
+                key={item.name}
+                className="cont_punto sangria"
+                onClick={() => handleScroll(item._id)}
+              >
+                {item.name}
+              </li>
             ))}
           </ul>
         </div>

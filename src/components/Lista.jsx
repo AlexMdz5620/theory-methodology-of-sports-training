@@ -7,30 +7,30 @@ import MacroMesoMicroList from "./Lista/MacroMesoMicroList";
 import DynamicList from "./Lista/DynamicList";
 import SesionList from "./Lista/SesionList";
 
-const Lista = () => {
+const Lista = ({ handleScroll }) => {
   const { conditional, coordinative, dynamic, macro, meso, micro, sesion } =
     useContext(ApiContext);
 
   return (
     <ul id="lista">
       <TemasListas classes={"Capacidades Físicas"}>
-        <ConditionalList data={conditional} />
-        <CoordinativeList data={coordinative} />
+        <ConditionalList data={conditional} handleScroll={handleScroll} />
+        <CoordinativeList data={coordinative} handleScroll={handleScroll} />
       </TemasListas>
       <TemasListas classes={"Macrociclos"}>
-        <MacroMesoMicroList data={macro} />
+        <MacroMesoMicroList data={macro} handleScroll={handleScroll} />
       </TemasListas>
       <TemasListas classes={"Mesociclos"}>
-        <MacroMesoMicroList data={meso} />
+        <MacroMesoMicroList data={meso} handleScroll={handleScroll} />
       </TemasListas>
       <TemasListas classes={"Microciclos"}>
-        <MacroMesoMicroList data={micro} />
+        <MacroMesoMicroList data={micro} handleScroll={handleScroll} />
       </TemasListas>
       <TemasListas classes={"Dinámicas"}>
-        <DynamicList data={dynamic} />
+        <DynamicList data={dynamic} handleScroll={handleScroll} />
       </TemasListas>
       <TemasListas classes={"Sesiones"}>
-        <SesionList data={sesion} />
+        <SesionList data={sesion} handleScroll={handleScroll} />
       </TemasListas>
     </ul>
   );

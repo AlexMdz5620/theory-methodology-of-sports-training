@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SesionList = ({ data }) => {
+const SesionList = ({ data, handleScroll }) => {
   const [openCategories, setOpenCategories] = useState({});
 
   const handleToogleCategory = (type) => {
@@ -23,14 +23,14 @@ const SesionList = ({ data }) => {
     if (!acc[listName]) {
       acc[listName] = [];
     }
-    acc[listName].push(item.name); // Agrega el nombre de la sesión
+    acc[listName].push(item); // Agrega el nombre de la sesión
     return acc;
   }, {});
 
   return (
     <div>
       {/* Mapear los grupos y renderizar las listas */}
-      {Object.entries(groupedData).map(([listName, names]) => (
+      {Object.entries(groupedData).map(([listName, items]) => (
         <div key={listName} className="punto">
           <div
             className="cont_punto"
@@ -41,9 +41,9 @@ const SesionList = ({ data }) => {
           <ul
             className={`resp ${openCategories[listName] ? "respActive" : ""}`}
           >
-            {names.map((name) => (
-              <li key={name} className="cont_punto sangria">
-                {name}
+            {items.map(item => (
+              <li key={item._id} className="cont_punto sangria" onClick={() => handleScroll(item._id)}>
+                {item.name}
               </li>
             ))}
           </ul>

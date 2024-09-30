@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CoordinativeList = ({ data }) => {
+const CoordinativeList = ({ data, handleScroll }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToogle = () => {
@@ -14,7 +14,11 @@ const CoordinativeList = ({ data }) => {
       </div>
       <ul>
         {data.map((item) => (
-          <li key={item._id} className={`cont_punto resp ${isOpen ? "respActive" : ""}`}>
+          <li
+            key={item._id}
+            className={`cont_punto resp ${isOpen ? "respActive" : ""}`}
+            onClick={() => handleScroll(item._id)}
+          >
             {item.name}
           </li>
         ))}

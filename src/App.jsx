@@ -1,18 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Lista from "./components/Lista";
-import Content from "./components/Content";
 import Footer from "./components/Footer";
 import { ApiProvider } from "./context/apiContext";
+import Home from "./pages/Home";
+import Dictionary from "./pages/Dictionary";
 
 function App() {
   return (
     <ApiProvider>
-      <Header />
+      <Router>
+        <Header />
         <main>
-          <Lista />
-          <Content />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dictionary" element={<Dictionary />} />
+          </Routes>
         </main>
-      <Footer />
+        <Footer />
+      </Router>
     </ApiProvider>
   );
 }

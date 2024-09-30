@@ -1,4 +1,14 @@
-function DynamicContent({ data }) {
+import { useRef, useEffect } from "react";
+
+function DynamicContent({ data, scrollToId }) {
+  const sectionRefs = useRef({});
+
+  useEffect(() => {
+    if (scrollToId && sectionRefs.current[scrollToId]) {
+      sectionRefs.current[scrollToId].scrollIntoView({ behavior: "smooth" });
+    }
+  }, [scrollToId]);
+
   const groupedData = data.reduce((acc, item) => {
     const typeMap = {
       "sist-consts": "Sistema de Constantes",
@@ -23,11 +33,11 @@ function DynamicContent({ data }) {
         <div key={listName}>
           <h1>{listName}</h1>
           {items.map((item, index) => (
-            <div key={index}>
+            <div key={index} ref={(el) => sectionRefs.current[item._id] = el}>
               <h1>{item.name}</h1>
-              <p>Definición: {item.data["definition"]}</p>
-              <p>Descripción: {item.data["description"]}</p>
-              <p>Ejemplo: {item.data["example"]}</p>
+              <p><span>Definición:</span> {item.data["definition"]}</p>
+              <p><span>Descripción:</span> {item.data["description"]}</p>
+              <p><span>Ejemplo:</span> {item.data["example"]}</p>
             </div>
           ))}
         </div>
